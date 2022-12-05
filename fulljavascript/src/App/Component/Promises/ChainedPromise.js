@@ -48,3 +48,13 @@ when .then() lacks to give response for resolved
 
 // When we can handle rejection part of promise using then itself then why we have catch function?
 
+/* 
+handling a rejected promise in .then() has consequences bcz of which we came to .catch().
+Sometimes wwe have to handle error immediately at that time we have no other option then catch 
+
+.catch is similar to .then() just with the callback function for the fulfilled promise 
+so mostly .then((resolved, rejected=undefined))
+.catch((resolve = undefined, rejected))
+*/
+
+
