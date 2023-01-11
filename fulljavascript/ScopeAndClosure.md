@@ -76,8 +76,32 @@ current scope if not found there as well then it will yell an error.
 
 LEXICAL SCOPE
 Type of Scope:
-i)	Lexical Scope 
-ii)	Dynamic Scope
+i)	Dynamic Scope
+	=> this does not concern itself with how and where function and scope is declared but rather where they are called from
+	In other words, the scope chain is based on the call-stack, not the nesting of scopes in code 
+
+	function foo(){
+		console.log(a)//10
+	} 
+
+	function bar(){
+		var a = 10;
+		foo()
+	}
+	var a = 2;
+	bar() 
+
+	here as we can see it should show 10 if this would be lexical scope but in dynamic scope it does not care where it is declared but where it is called.
+
+	How can this be?
+	Because when foo() can not resolve the variable reference for a, instead of stepping up the nested scope chain(lexical), it walks up the call stack, to find where foo() was called from.
+
+	The Key contrast: lexical scope is write-time, whereas dynamic scope (and this!) are runtime. Lexical scope cares where a function was declared, but dynamic scope cares where the function was called from.
+
+
+ii)	Lexical Scope 
+
+
 Lex-time:
 As we discussed the first traditional phase of a standard language compiler is called lexing/ tokenizing. 
 So what lexing does is breaking up a source code character into meaningful chunk called tokens.
@@ -131,7 +155,7 @@ So in simple word it will not perform optimizations at all.
 			var b = 20;
 			console.log(b)
 		}
-	}
+	} 
 
 	a is in the global scope of bar and b is in the local scope of bar and both a and bar are in the local scope of foo function 
 
@@ -176,8 +200,7 @@ So in simple word it will not perform optimizations at all.
 		i++
 	}
 	why to pollute the entire scope of a function with the variable i that is only going to be used inside for loop => principle of privilege
-
-
-					
+				
 
 	here i is declared directly inside the for loop and essentially ignore the fact that the variable actually scopes itslef to the enclosing scope ( function or global)
+
