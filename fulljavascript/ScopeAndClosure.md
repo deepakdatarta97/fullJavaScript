@@ -119,4 +119,65 @@ It has a no. of performance optimization that it performs during the compilation
 But if engine find eval() or with() it will assume that all its awareness of identifier location may be invalid because it can not know at lexing time exactly what code you may pass to eval()….. bcz eval() will create its own new lexical scope.
 So in simple word it will not perform optimizations at all.
 
+					
+					<!-- Function Versus Block Scope -->
 
+<!-- Scope from Function -->
+	only function create scope for itself but no other structure create their own scope in JS.
+
+	function foo(){
+		var a = 10;
+		function bar(){
+			var b = 20;
+			console.log(b)
+		}
+	}
+
+	a is in the global scope of bar and b is in the local scope of bar and both a and bar are in the local scope of foo function 
+
+<!-- Hiding in the plain scope -->
+
+	we should not write or declare every variable/function or any structure in the global scope. They make global structure look very dirty, and all the variable will be accessible to nested functions which make it dangerous as well.
+	so try to declare variable and function inside the function scope itself.
+	Principle of Least Privilege/ Least Authority or Least Exposure
+
+	Another benifit of hiding variable and function inside a scope is to avoid unintended collision between two different identifier with the same name but different intended usages.
+
+	<!-- Function Declaration vs Function Expression -->
+
+	if a function is having name like function foo(){} then this is known as declaration of a function 
+	if a function is assingned to any variable then that is known as function expression. like var func = function(){}
+	if a function is not having name fuction(){} this is known as anonymous function
+
+	anonymous function make code look clean but they are not readable and hard to debug and can not do actions such as recursion. 
+
+	<!-- IIFE (Invoking function Expression Immediatley) -->
+
+	this kind of function written in this for (function(){.....})() the first () makes the function an expression and the second () executes the function
+
+	var a = 2;
+
+	(function IIFE ( def ){
+		def( window )
+	})(function def(global){
+		var a = 3;
+		console.log(a)//3
+		console.log(global.a)//2
+	})
+
+	<!-- Blocks as scope -->
+
+	Block-scoping means declare a variable as close as possible, as local as possible, to where they will be used
+
+	Most of the other language support block scope 
+
+	for(let i =0; i<10;i++){
+		console.log(i)
+		i++
+	}
+	why to pollute the entire scope of a function with the variable i that is only going to be used inside for loop => principle of privilege
+
+
+					
+
+	here i is declared directly inside the for loop and essentially ignore the fact that the variable actually scopes itslef to the enclosing scope ( function or global)
